@@ -1,9 +1,7 @@
 package org.pealfactory.strike.audio;
 
-import org.pealfactory.strike.data.AveragedRowData;
 import org.pealfactory.strike.data.AveragedRow;
 import org.pealfactory.strike.data.AveragedRowSource;
-import sun.misc.*;
 
 /**
  * <p>
@@ -178,17 +176,20 @@ public class ReplayThread implements Runnable
 
 	class HiResTimer
 	{
+		/*
 		Perf hiResTimer;
 		long freq;
+		*/
 
 		public HiResTimer()
-		{
+		{/*
 			hiResTimer = Perf.getPerf();
 			freq = hiResTimer.highResFrequency();
+			*/
 		}
 		public long currentTimeMillis()
 		{
-			return hiResTimer.highResCounter()*1000/freq;
+			return System.currentTimeMillis();
 		}
 	}
 }
