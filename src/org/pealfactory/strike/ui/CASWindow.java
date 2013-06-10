@@ -63,6 +63,7 @@ public class CASWindow extends BaseUI implements ChangeListener
 	private static final String EXT_BAND_LIST = ".lst";
 
 	private CASContainer fParent;
+	private boolean fWebAppletMode;
 
 	private Pipeline fPipeline;
 	private String fCurrentFile;
@@ -83,11 +84,12 @@ public class CASWindow extends BaseUI implements ChangeListener
 	private int fSelectedBell;
 	private boolean fInChangesOnly = true;
 
-	public CASWindow()
+	public CASWindow(boolean fWebAppletMode)
 	{
 		super();
 		fVisualiserNames = new DefaultComboBoxModel();
 		fDisplay = new AbelDisplay();
+		this.fWebAppletMode = fWebAppletMode;
 	}
 
 	public static List<CASWindow> getCASWindows()
@@ -196,28 +198,30 @@ public class CASWindow extends BaseUI implements ChangeListener
 
 	@Override
 	protected void createToolBar(JToolBar toolbar)
-	{
-		JButton newBut = createIconButton("general/New", "New", ACTION_NEW, KeyEvent.VK_N);
-		JButton openBut = createIconButton("general/Open", "Open", ACTION_OPEN, KeyEvent.VK_O);
-		JButton reloadBut = createIconButton("general/Refresh", "Reload", ACTION_RELOAD, KeyEvent.VK_R, KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0, true));
-		JButton captureBut = createIconButton("general/Import", "Capture", ACTION_CAPTURE, KeyEvent.VK_C );
-		JButton saveBut = createIconButton("general/Save", "Save", ACTION_SAVE, KeyEvent.VK_S);
-		JButton printBut = createIconButton("general/Print", "Print", ACTION_PRINT, KeyEvent.VK_P);
-		JButton pageSetupBut = createIconButton("general/PageSetup", "Page Setup", ACTION_PAGESETUP, KeyEvent.VK_A);
-		JButton summariseBut = createIconButton("general/Edit", "Summariser", ACTION_SUMMARISE, KeyEvent.VK_U);
-
-		toolbar.add(newBut);
-		toolbar.add(openBut);
-		toolbar.add(saveBut);
-		toolbar.addSeparator();
-		toolbar.add(captureBut);
-		toolbar.add(reloadBut);
-		toolbar.addSeparator();
-		toolbar.add(summariseBut);
-		toolbar.addSeparator();
-		toolbar.add(printBut);
-		toolbar.add(pageSetupBut);
-		toolbar.addSeparator();
+	{		
+		if (!fWebAppletMode) {
+			JButton newBut = createIconButton("general/New", "New", ACTION_NEW, KeyEvent.VK_N);
+			JButton openBut = createIconButton("general/Open", "Open", ACTION_OPEN, KeyEvent.VK_O);
+			JButton reloadBut = createIconButton("general/Refresh", "Reload", ACTION_RELOAD, KeyEvent.VK_R, KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0, true));
+			JButton captureBut = createIconButton("general/Import", "Capture", ACTION_CAPTURE, KeyEvent.VK_C );
+			JButton saveBut = createIconButton("general/Save", "Save", ACTION_SAVE, KeyEvent.VK_S);
+			JButton printBut = createIconButton("general/Print", "Print", ACTION_PRINT, KeyEvent.VK_P);
+			JButton pageSetupBut = createIconButton("general/PageSetup", "Page Setup", ACTION_PAGESETUP, KeyEvent.VK_A);
+			JButton summariseBut = createIconButton("general/Edit", "Summariser", ACTION_SUMMARISE, KeyEvent.VK_U);
+	
+			toolbar.add(newBut);
+			toolbar.add(openBut);
+			toolbar.add(saveBut);
+			toolbar.addSeparator();
+			toolbar.add(captureBut);
+			toolbar.add(reloadBut);
+			toolbar.addSeparator();
+			toolbar.add(summariseBut);
+			toolbar.addSeparator();
+			toolbar.add(printBut);
+			toolbar.add(pageSetupBut);
+			toolbar.addSeparator();
+		}
 
 		toolbar.add(new JLabel("Visualiser:"));
 		toolbar.addSeparator();
@@ -708,13 +712,35 @@ public class CASWindow extends BaseUI implements ChangeListener
 		CAS.setHomeDirectory(newHome);
 	}
 
+	public void loadFromString(final String strikeData, final String touchTitle) throws IOException {
+
+		try
+		{
+			fLoadingIndicator.setEnabled(true);
+			InputFactory factory = new InputFactory();
+			StrikingDataInput inputter = factory.createInputterFromString(strikeData, touchTitle,  fParent);
+			Pipeline newPipeline = new Pipeline(inputter);
+			updateFileInfo(newPipeline.getName(), newPipeline.getInputSource(), newPipeline.getInputFormat());
+			fParent.setTitle("CAS ("+newPipeline.getName()+")");
+			clearVisualiserData();
+			setPipeline(newPipeline);
+			// Pipeline starts a new thread to do the load.
+			newPipeline.start();
+		}
+		catch (IOException e)
+		{
+			fLoadingIndicator.setEnabled(false);
+			throw e;
+		}
+	}
+	
 	private void loadOneFile(String filename) throws IOException
 	{
 		try
 		{
 			fLoadingIndicator.setEnabled(true);
 			InputFactory factory = new InputFactory();
-			StrikingDataInput inputter = factory.createInputter(filename, fParent);
+			StrikingDataInput inputter = factory.createInputterFromFile(filename, fParent);
 			Pipeline newPipeline = new Pipeline(inputter);
 			updateFileInfo(newPipeline.getName(), newPipeline.getInputSource(), newPipeline.getInputFormat());
 			fParent.setTitle("CAS ("+newPipeline.getName()+")");
@@ -837,5 +863,6 @@ public class CASWindow extends BaseUI implements ChangeListener
 	{
 		return getFileOnly(fPipeline.getName());
 	}
+
 
 }

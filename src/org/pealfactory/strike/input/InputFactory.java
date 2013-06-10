@@ -1,6 +1,7 @@
 package org.pealfactory.strike.input;
 
 import org.pealfactory.strike.Constants;
+import org.pealfactory.strike.ui.CASContainer;
 
 import java.io.*;
 import java.util.*;
@@ -43,7 +44,36 @@ public class InputFactory implements Constants
 	{
 	}
 
-	public StrikingDataInput createInputter(String filename, InputSource source) throws IOException
+
+	public StrikingDataInput createInputterFromString(String strikeData,
+			String touchTitle, CASContainer fParent) throws IOException {
+		int maxLinesToDetermineInput = 20;
+		
+		LineNumberReader reader = new LineNumberReader( new StringReader(strikeData) );
+		StrikingDataInput inputter = null;
+		
+		String line;
+		while ( (inputter==null) && (maxLinesToDetermineInput>0)) {
+			line = reader.readLine();
+			if (line==null)
+				throw new IOException("File is empty");
+			maxLinesToDetermineInput--;
+			line = line.trim();
+
+			if (CasBongInput.isMyType(line))
+				inputter = new CasBongInput(touchTitle, reader);
+			else if (LowndesBongInput.isMyType(line))
+				inputter = new LowndesBongInput(touchTitle, reader);
+		}
+		
+		if (inputter == null) {
+			throw new IOException("File is not in a recognised input format");
+		}
+
+		return inputter;
+	}
+	
+	public StrikingDataInput createInputterFromFile(String filename, InputSource source) throws IOException
 	{
 		LineNumberReader reader = new LineNumberReader(source.getReader(filename));
 		StrikingDataInput inputter = null;
@@ -87,4 +117,5 @@ public class InputFactory implements Constants
 		reader.close();
 		return bands;
 	}
+
 }
