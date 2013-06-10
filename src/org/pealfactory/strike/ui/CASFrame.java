@@ -1,24 +1,13 @@
 package org.pealfactory.strike.ui;
 
-import org.pealfactory.strike.data.AveragedRowData;
-import org.pealfactory.strike.data.TouchStats;
-import org.pealfactory.strike.Constants;
+
 import org.pealfactory.strike.CAS;
-import org.pealfactory.strike.input.InputFactory;
-import org.pealfactory.strike.input.StrikingDataInput;
-import org.pealfactory.strike.pipeline.Pipeline;
-import org.pealfactory.strike.analyser.*;
-import org.pealfactory.strike.audio.ReplayThread;
-import org.pealfactory.strike.audio.PlaybackController;
 import org.pealfactory.strike.summary.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
-import java.net.URL;
 import java.io.*;
-import java.text.NumberFormat;
 
 /**
  * <p>
@@ -45,6 +34,11 @@ import java.text.NumberFormat;
  */
 public class CASFrame extends JFrame implements CASContainer
 {
+	/**
+	 * Auto-generated serial ID
+	 */
+	private static final long serialVersionUID = -6925218657680670350L;
+	
 	private CASWindow fWindow;
 	private static File gExportDirectory = null;
 	private static int gWindowOpenedCount = 0;
