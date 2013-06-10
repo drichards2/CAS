@@ -31,6 +31,11 @@ import java.awt.event.*;
  */
 public class SummaryFrame extends JFrame implements SummaryContainer
 {
+	/**
+	 * Auto-generated serial ID
+	 */
+	private static final long serialVersionUID = 5276830476741876713L;
+	
 	private SummaryWindow fWindow;
 
   public SummaryFrame(String title, SummaryWindow window)

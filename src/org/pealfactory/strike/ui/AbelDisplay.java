@@ -34,6 +34,11 @@ import java.awt.print.*;
  */
 public class AbelDisplay extends StrikingDisplay implements Constants
 {
+	/**
+	 * Random serial ID
+	 */
+	private static final long serialVersionUID = 6537535906182509975L;
+	
 	public final static int EXTRA_WIDTH = 150;
 	public final static int ROW_WIDTH = 300;
 	public final static int SPEED_WIDTH = 200;

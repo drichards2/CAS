@@ -33,6 +33,11 @@ import java.awt.event.MouseEvent;
  */
 public abstract class StrikingDisplay extends SimpleStrikingDisplay implements Scrollable, MouseListener
 {
+	/**
+	 * Auto-generated serial ID
+	 */
+	private static final long serialVersionUID = 7848724885930180292L;
+	
 	protected float fZoomX = 1.0f;
 	protected float fZoomY = 1.0f;
 	protected float fZoomFont = 1.0f;

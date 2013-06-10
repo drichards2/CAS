@@ -27,6 +27,11 @@ import java.util.*;
  */
 public class SummaryTableModel extends AbstractTableModel implements Runnable
 {
+	/**
+	 * Auto-generated serial ID
+	 */
+	private static final long serialVersionUID = -7356283647378329896L;
+	
 	private int fRows = 0;
 	private Summariser fSummariser;
 	private List<BandOrder> fBandOrders;

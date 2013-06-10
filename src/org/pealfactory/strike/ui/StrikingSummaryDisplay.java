@@ -31,6 +31,11 @@ import java.awt.print.*;
  */
 public class StrikingSummaryDisplay extends SimpleStrikingDisplay
 {
+	/**
+	 * Auto-generated serial ID
+	 */
+	private static final long serialVersionUID = 7922140453783017966L;
+
 	protected void repaintRow(int row)
 	{
 	}

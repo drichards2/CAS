@@ -34,6 +34,11 @@ import java.awt.event.MouseListener;
  */
 public abstract class SimpleStrikingDisplay extends JComponent implements MouseListener, PrintableUI
 {
+	/**
+	 * Auto-generated serial ID
+	 */
+	private static final long serialVersionUID = 455645905074651652L;
+	
 	protected boolean fRowsLoaded;
 	protected TouchStats fData;
 	protected boolean fInChangesOnly = true;
