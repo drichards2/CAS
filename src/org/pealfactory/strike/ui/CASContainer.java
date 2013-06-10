@@ -3,9 +3,7 @@ package org.pealfactory.strike.ui;
 import org.pealfactory.strike.input.InputSource;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+
 
 /**
  * <p>

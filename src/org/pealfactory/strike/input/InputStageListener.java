@@ -1,6 +1,5 @@
 package org.pealfactory.strike.input;
 
-import org.pealfactory.strike.data.Bong;
 
 /**
  * <p>

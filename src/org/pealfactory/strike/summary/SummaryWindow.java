@@ -5,10 +5,8 @@ import org.pealfactory.strike.pipeline.*;
 import org.pealfactory.strike.ui.*;
 
 import java.awt.print.*;
-import java.io.*;
 import java.util.*;
 import javax.swing.*;
-import javax.swing.tree.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;

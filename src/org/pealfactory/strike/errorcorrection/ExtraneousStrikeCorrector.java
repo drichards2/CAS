@@ -1,6 +1,5 @@
 package org.pealfactory.strike.errorcorrection;
 
-import org.pealfactory.strike.*;
 import org.pealfactory.strike.data.*;
 
 /**

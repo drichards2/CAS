@@ -1,9 +1,7 @@
 package org.pealfactory.strike.input;
 
 import org.pealfactory.strike.data.Bong;
-import org.pealfactory.strike.Constants;
 import org.pealfactory.strike.errorcorrection.*;
-import org.pealfactory.strike.pipeline.*;
 
 import java.io.*;
 import java.util.*;
